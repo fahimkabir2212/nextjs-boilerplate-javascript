@@ -1,0 +1,16 @@
+# Format staged files with Prettier and re-stage them
+files=$(git diff --cached --name-only --diff-filter=ACMR)
+if [ -n "$files" ]; then
+  echo "🔍 Formatting changed files with Prettier..."
+  echo "$files" | xargs prettier --write --ignore-unknown
+  echo "✅ Done formatting"
+  git add $(echo "$files" | xargs)
+fi
+
+# Run build check to make sure everything compiles
+echo "🔨 Running build check..."
+npm run build || {
+  echo "❌ Build failed! Please fix the issues before committing."
+  exit 1
+}
+echo "✅ Build check passed!"
