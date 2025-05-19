@@ -17,7 +17,7 @@ export async function getApi(endpoint, apiVersion = "", options = {}) {
       next: { revalidate: 3600 },
       ...options,
     });
-    console.log("response.ok", response.ok);
+
     if (!response.ok) {
       const errorText = await response.text();
       throw {
@@ -27,7 +27,6 @@ export async function getApi(endpoint, apiVersion = "", options = {}) {
       };
     }
 
-    // Handle different response types
     const contentType = response.headers.get("content-type");
     if (contentType && contentType.includes("application/json")) {
       return await response.json();
