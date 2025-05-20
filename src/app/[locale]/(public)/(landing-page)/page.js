@@ -9,7 +9,7 @@ export default function Home() {
       <TestServerFetch />
       <hr />
       <TestPrivateFetch />
-      <h1>{t('title')}</h1>
+      <h1 className="text-2xl text-primary">{t('title')}</h1>
     </div>
   );
 }
